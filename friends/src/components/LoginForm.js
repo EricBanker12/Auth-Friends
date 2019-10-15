@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { Form, Label, Input, Button } from 'reactstrap'
 
 export function LoginForm(props) {
     const [state, setState] = React.useState({
@@ -32,29 +33,30 @@ export function LoginForm(props) {
     }
 
     return (
-        <form onSubmit={submitHandler}>
-            <label>
+        <Form className='col-sm-6 mx-auto' onSubmit={submitHandler}>
+            <h4>Log-in</h4>
+            <Label className='d-block'>
                 <h6>Username</h6>
-                <input
+                <Input
                     type='text'
                     name='username'
                     placeholder='username'
                     value={state.username}
                     onChange={changeHandler}
                 />
-            </label>
-            <label>
+            </Label>
+            <Label className='d-block'>
                 <h6>Password</h6>
-                <input
+                <Input
                     type='password'
                     name='password'
                     placeholder='password'
                     value={state.password}
                     onChange={changeHandler}
                 />
-            </label>
-            <button type='submit' disabled={state.loading}>Log-in</button>
-            <p>{state.error}</p>
-        </form>
+            </Label>
+            <Button type='submit' className='btn-info' disabled={state.loading}>Log-in</Button>
+            <p className='text-danger'>{state.error}</p>
+        </Form>
     )
 }
