@@ -2,14 +2,14 @@ import React from 'react'
 
 import { axiosWithAuth } from '../utils'
 
-import { Friend } from '../components'
+import { Friend, AddFriend } from '../components'
 
 export function FriendsList(props) {
     const [friends, setFriends] = React.useState([])
 
     React.useEffect(() => {
         // get friends on mount
-        axiosWithAuth().get('http://localhost:5000/api/friends')
+        axiosWithAuth().get('/api/friends')
             .then(resp => {
                 console.log(resp)
                 setFriends(resp.data)
@@ -20,7 +20,7 @@ export function FriendsList(props) {
     return (
         <div>
             <h3>Friends</h3>
-            {/* <AddFriend setFriends={setFriends} /> */}
+            <AddFriend setFriends={setFriends} />
             {friends.map(friend => <Friend key={friend.id} friend={friend} />)}
         </div>
     )

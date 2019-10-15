@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { axiosWithAuth } from '../utils'
+
 export function FriendForm(props) {
     const [state, setState] = React.useState({
         name: '',
@@ -9,6 +11,13 @@ export function FriendForm(props) {
 
     function submitHandler(e) {
         e.preventDefault()
+        const {name, age, email} = state
+        axiosWithAuth().post('/api/friends', {name, age: Number(age), email})
+            .then(resp => {
+                console.log(resp)
+                props.setFriends(resp.data)
+            })
+            .catch(console.error)
     }
 
     function changeHAndler(e) {
