@@ -18,10 +18,12 @@ export function FriendsList(props) {
     },[])
 
     return (
-        <div>
+        <div className='mx-auto col-sm-9'>
             <h3>Friends</h3>
             <AddFriend setFriends={setFriends} />
-            {friends.map(friend => <Friend key={friend.id} friend={friend} />)}
+            <div className='row mt-3'>
+                {friends.map(friend => <Friend key={friend.id} friend={friend} />)}
+            </div>
         </div>
     )
 }
