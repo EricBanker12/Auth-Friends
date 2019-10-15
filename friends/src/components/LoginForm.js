@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Form, Label, Input, Button } from 'reactstrap'
+import { Redirect } from 'react-router-dom'
 
 export function LoginForm(props) {
     const [state, setState] = React.useState({
@@ -9,6 +10,8 @@ export function LoginForm(props) {
         loading: false,
         error: '',
     })
+
+    if (localStorage.getItem('token')) return <Redirect to='/friends' />
 
     function changeHandler(e) {
         setState({
