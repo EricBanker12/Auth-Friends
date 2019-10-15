@@ -24,7 +24,7 @@ export function LoginForm(props) {
             .then(resp => {
                 console.log(resp)
                 localStorage.setItem('token', resp.data.payload)
-                // props.history.push()
+                props.history.push('/friends')
             })
             .catch(err => {
                 setState({...state, loading: false, error: err.message})
