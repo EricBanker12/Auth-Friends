@@ -22,7 +22,7 @@ export function FriendsList(props) {
             <h3>Friends</h3>
             <AddFriend setFriends={setFriends} />
             <div className='row mt-3'>
-                {friends.map(friend => <Friend key={friend.id} friend={friend} />)}
+                {friends.map(friend => <Friend key={friend.id} {...{friend, setFriends}} />)}
             </div>
         </div>
     )

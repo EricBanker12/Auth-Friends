@@ -4,21 +4,39 @@ import { Form, Label, Input, Button, Modal, ModalBody, ModalHeader, ModalFooter 
 import { axiosWithAuth } from '../utils'
 
 export function FriendForm(props) {
-    const [state, setState] = React.useState({
-        name: '',
-        age: '',
-        email: '',
+    const [state, setState] = React.useState(() => {
+        if (props.edit) return {
+            ...props.edit,
+            age: String(props.edit.age)
+        }
+        return {
+            name: '',
+            age: '',
+            email: '',
+        }
     })
 
     function submitHandler(e) {
         e.preventDefault()
         const {name, age, email} = state
-        axiosWithAuth().post('/api/friends', {name, age: Number(age), email})
+        if (props.edit) {
+            axiosWithAuth().put(`/api/friends/${props.edit.id}`, {name, age: Number(age), email})
             .then(resp => {
                 console.log(resp)
                 props.setFriends(resp.data)
+                props.setShow(false)
             })
             .catch(console.error)
+        }
+        else {
+            axiosWithAuth().post('/api/friends', {name, age: Number(age), email})
+                .then(resp => {
+                    console.log(resp)
+                    props.setFriends(resp.data)
+                    props.setShow(false)
+                })
+                .catch(console.error)
+        }
     }
 
     function changeHAndler(e) {
@@ -37,7 +55,7 @@ export function FriendForm(props) {
         <Modal isOpen={props.show}>
             <Form onSubmit={submitHandler}>
                 <ModalHeader>
-                    <h4>Add a Friend</h4>
+                    {props.edit?'Edit':'Add'} a Friend
                 </ModalHeader>
                 <ModalBody>
                     <Label className='d-block'>
@@ -72,7 +90,7 @@ export function FriendForm(props) {
                     </Label>
                 </ModalBody>
                 <ModalFooter>
-                    <Button type='submit' className='btn-success'>Add friend</Button>
+                    <Button type='submit' className={props.edit?'btn-info':'btn-success'}>{props.edit?'Edit':'Add'} friend</Button>
                     <Button  type='button' className='btn-danger' onClick={cancelHandler}>Cancel</Button>
                 </ModalFooter>
             </Form>
