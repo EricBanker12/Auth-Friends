@@ -19,6 +19,8 @@ export function FriendsList(props) {
 
     return (
         <div>
+            <h3>Friends</h3>
+            {/* <AddFriend setFriends={setFriends} /> */}
             {friends.map(friend => <Friend key={friend.id} friend={friend} />)}
         </div>
     )
