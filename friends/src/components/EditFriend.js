@@ -8,7 +8,7 @@ export function EditFriend({friend, setFriends}) {
 
     return (
         <>
-        <Button className='btn-info' onClick={()=>{setShow(true)}}>Edit</Button>
+        <Button className='btn-sm btn-info ml-auto' onClick={()=>{setShow(true)}}>Edit</Button>
         <FriendForm {...{show, setShow, edit: friend, setFriends}} />
         </>
     )
